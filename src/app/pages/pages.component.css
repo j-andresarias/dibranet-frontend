@@ -1,0 +1,23 @@
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 125px);
+}
+.bg-primary {
+  background-color: rgba(119,178,84,var(--mdb-bg-opacity)) !important;
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+
+#home
+{
+  background-color: darkgray;
+}

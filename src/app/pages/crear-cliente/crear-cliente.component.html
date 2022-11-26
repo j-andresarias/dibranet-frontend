@@ -1,0 +1,93 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+      <div class="ibox" id="ibox">
+        <div class="ibox-title">
+          <h5>Crear Cliente</h5>
+        </div>
+        <div class="ibox-content">
+          <div class="row">
+            <div class="col-sm-12 b-r">
+              <form [formGroup]="formCrearCliente" role="form" (submit)="crearCliente()">
+                <div class="row">
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Nombres</label>
+                    <input type="text" formControlName="nombre" class="form-control">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Apellidos</label>
+                    <input type="text" formControlName="apellido" class="form-control">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Correo</label>
+                    <input type="text" formControlName="correo" class="form-control">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Tipo Documento</label>
+                    <div class="form-group">
+                      <select formControlName="rol" class="form-select" formControlName="tipoDoc">
+                        <option value="CC">CC</option>
+                        <option value="NIT">NIT</option>
+                        <option value="CE">CE</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Documento</label>
+                    <input type="text" class="form-control" formControlName="documento">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Modalidad</label>
+                    <input type="text" class="form-control" formControlName="modalidad">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Dirección</label>
+                    <input type="text" class="form-control" formControlName="direccion">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Telefono</label>
+                    <input type="text" class="form-control" formControlName="telefono">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Estrato</label>
+                    <select formControlName="rol" class="form-select" formControlName="estrato">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Megas</label>
+                    <input type="text" class="form-control" formControlName="megas">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Fecha de Corte</label>
+                    <input type="date" class="form-control" formControlName="fechaCorte">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Fecha de Instalación</label>
+                    <input type="date" class="form-control" formControlName="fechaInstalacion">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary m-b">Crear</button>
+                      &nbsp;
+                      <button (click)="gotoBack()" class="btn btn-danger m-b"
+                        type="button"><strong>Volver</strong></button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1"></div>
+  </div>
+</div>

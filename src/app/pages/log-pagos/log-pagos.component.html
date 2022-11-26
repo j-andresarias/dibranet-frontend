@@ -1,0 +1,11 @@
+
+<input type="file" (change)="onFileChange($event)" multiple="false" />
+<table class="footable table table-striped " data-filter=#filter>
+  <tbody>
+    <tr *ngFor="let row of data">
+            <td *ngFor="let cell of row">
+                    {{cell}}
+            </td>
+    </tr>
+</tbody>
+</table>

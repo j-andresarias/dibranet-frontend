@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  base_url: 'https://apimocha.com/dibranet/'
+  base_url: 'https://apimocha.com/dibranet/',
+  base_url2:'api'
 };
 
 /*

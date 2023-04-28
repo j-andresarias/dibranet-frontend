@@ -17,34 +17,36 @@
             <th>Direccion</th>
             <th>Telefono</th>
             <th>Correo</th>
-            <th>Megas</th>
-            <th>Modalidad</th>
-            <th>Fecha de Corte</th>
+            <!-- <th>Megas</th> -->
+            <!-- <th>Modalidad</th> -->
+            <!-- <th>Fecha de Corte</th> -->
             <th>Fecha de Instalacion</th>
-            <th>Observaciones</th>
+            <!-- <th>Observaciones</th> -->
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor ="let cliente of clientes; let indice=index">
             <td>{{indice + 1}}</td>
-            <td>{{cliente.nombres}}</td>
-            <td>{{cliente.apellidos}}</td>
-            <td>{{cliente.tipoDocumento}}</td>
-            <td>{{cliente.documento}}</td>
-            <td>{{cliente.direccion}}</td>
-            <td>{{cliente.telefono}}</td>
-            <td>{{cliente.correo}}</td>
-            <td>{{cliente.megas}}</td>
-            <td>{{cliente.modalidad}}</td>
-            <td>{{cliente.fechaCorte}}</td>
-            <td>{{cliente.fechaInstalacion}}</td>
-            <td>{{cliente.observacion}}</td>
+            <td>{{cliente.name}}</td>
+            <td>{{cliente.lastName}}</td>
+            <td>{{cliente.identificationType}}</td>
+            <td>{{cliente.identificationNumber}}</td>
+            <td>{{cliente.address}}</td>
+            <td>{{cliente.phone}}</td>
+            <td>{{cliente.email}}</td>
+        <!--     <td>{{cliente.megas}}</td> -->
+           <!--  <td>{{cliente.modalidad}}</td> -->
+            <!-- <td>{{cliente.fechaCorte}}</td> -->
+            <td>{{cliente.createdAt}}</td>
+            <!-- <td>{{cliente.observacion}}</td> -->
             <td><button (click)="editCliente(cliente)" class="btn btn-info">Editar</button></td>
           </tr>
 
         </tbody>
       </table>
+      <button (click)="gotoBack2()" class="btn btn-danger m-b"
+                        type="button"><strong>Volver</strong></button>
     </div>
     <div class="col-lg-1"></div>
   </div>
@@ -56,76 +58,83 @@
           <h5>Editar Cliente</h5>
         </div>
         <div class="ibox-content">
+          <div class="sk-spinner sk-spinner-wave">
+            <div class="sk-rect1"></div>
+            <div class="sk-rect2"></div>
+            <div class="sk-rect3"></div>
+            <div class="sk-rect4"></div>
+            <div class="sk-rect5"></div>
+          </div>
           <div class="row">
             <div class="col-sm-12 b-r">
-              <form>
+              <form class="m-t" role="form" [formGroup]="updateCustomerForm" (submit)="actualizarCustomer()" autocomplete="off">
                 <div class="row">
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Nombres</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="nombre">
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Apellidos</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="apellido">
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Correo</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="email">
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Tipo Documento</label>
                     <div class="form-group">
-                      <select formControlName="rol" class="form-select">
-                        <option value="">CC</option>
-                        <option value="">NIT</option>
-                        <option value="">CE</option>
+                      <select formControlName="rol" class="form-select" formControlName="tipoDoc">
+                        <option value="CC">CC</option>
+                        <option value="NIT">NIT</option>
+                        <option value="CE">CE</option>
                       </select>
                     </div>
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Documento</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="documento">
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Modalidad</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="modalidad" >
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Dirección</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="direccion">
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Telefono</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="telefono">
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Estrato</label>
-                    <select formControlName="rol" class="form-select">
-                      <option value="">1</option>
-                      <option value="">2</option>
-                      <option value="">3</option>
-                      <option value="">4</option>
+                    <select formControlName="rol" class="form-select" formControlName="estrato">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
                     </select>
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Megas</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="megas">
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Fecha de Corte</label>
-                    <input type="date" class="form-control">
+                    <input type="date" class="form-control" formControlName="fechaCorte">
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Fecha de Instalación</label>
-                    <input type="date" class="form-control">
+                    <input type="date" class="form-control" formControlName="fechaInstalacion">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary m-b">Crear</button>
+                      <button type="submit" class="btn btn-primary m-b">Actualizar</button>
                       &nbsp;
-                      <button  class="btn btn-danger m-b"
+                      <button (click)="gotoBack()"  class="btn btn-danger m-b"
                         type="button"><strong>Volver</strong></button>
                     </div>
                   </div>

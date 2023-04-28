@@ -7,6 +7,13 @@
           <h5>Crear Cliente</h5>
         </div>
         <div class="ibox-content">
+          <div class="sk-spinner sk-spinner-wave">
+            <div class="sk-rect1"></div>
+            <div class="sk-rect2"></div>
+            <div class="sk-rect3"></div>
+            <div class="sk-rect4"></div>
+            <div class="sk-rect5"></div>
+          </div>
           <div class="row">
             <div class="col-sm-12 b-r">
               <form [formGroup]="formCrearCliente" role="form" (submit)="crearCliente()">
@@ -14,14 +21,23 @@
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Nombres</label>
                     <input type="text" formControlName="nombre" class="form-control">
+                    <div class="text-danger">
+                      <p *ngIf="campoNoValido('nombre')">*El Nombre es obligatorio.</p>
+                    </div>
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Apellidos</label>
                     <input type="text" formControlName="apellido" class="form-control">
+                    <div class="text-danger">
+                      <p *ngIf="campoNoValido('apellido')">*El Apellido es obligatorio.</p>
+                    </div>
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Correo</label>
                     <input type="text" formControlName="correo" class="form-control">
+                    <div class="text-danger">
+                      <p *ngIf="campoNoValido('correo')">*Ingresar un correo valido.</p>
+                    </div>
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Tipo Documento</label>
@@ -32,10 +48,16 @@
                         <option value="CE">CE</option>
                       </select>
                     </div>
+                    <div class="text-danger">
+                      <p *ngIf="campoNoValido('tipoDoc')">*Tipo de Documento es obligatorio.</p>
+                    </div>
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Documento</label>
                     <input type="text" class="form-control" formControlName="documento">
+                    <div class="text-danger">
+                      <p *ngIf="campoNoValido('documento')">*El Documento es obligatorio.</p>
+                    </div>
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Modalidad</label>
@@ -44,10 +66,16 @@
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Dirección</label>
                     <input type="text" class="form-control" formControlName="direccion">
+                    <div class="text-danger">
+                      <p *ngIf="campoNoValido('direccion')">*La Dirección es obligatorio.</p>
+                    </div>
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Telefono</label>
                     <input type="text" class="form-control" formControlName="telefono">
+                    <div class="text-danger">
+                      <p *ngIf="campoNoValido('telefono')">*El Telefono es obligatorio.</p>
+                    </div>
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Estrato</label>

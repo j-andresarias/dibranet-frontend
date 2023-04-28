@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+    "target": "https://portal-dribanet-backend-production.up.railway.app",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

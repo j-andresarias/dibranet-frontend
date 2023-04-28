@@ -1,53 +1,54 @@
-<section class="text-center">
-  <div class="row">
-    <div class="col-lg-3"></div>
-    <div class="ibox-content m-b-sm border-bottom col-lg-6">
-      <form action="">
-        <div class="row">
-          <div class="col-sm-8">
-            <div class="form-group">
-              <label class="col-form-label" for="order_id">Documento</label>
-              <input type="text" id="order_id" name="order_id" value="" placeholder="Documento" class="form-control">
-            </div>
-          </div>
-          <div class="col-sm-4">
-              <button style="margin-top: 32px ;" class="btn btn-primary">Buscar</button>
-          </div>
-          <div class="col-sm-4">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label class="col-form-label" for="date_added">Date added</label>
-              <div class="input-group date">
-                <input id="date_added" type="date"
-                  class="form-control" value="03/04/2014">
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label class="col-form-label" for="date_modified">Date modified</label>
-              <div class="input-group date">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="date_modified" type="text"
-                  class="form-control" value="03/06/2014">
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label class="col-form-label" for="amount">Amount</label>
-              <input type="text" id="amount" name="amount" value="" placeholder="Amount" class="form-control">
+<section class="text-center justify-content-center d-flex">
+  <div class="ibox-content m-b-sm border-bottom">
+    <form [formGroup]="formPay">
+      <div class="row align-items-center">
+        <div class="col-sm-8">
+          <div class="form-group">
+            <label class="col-form-label" for="order_id">Documento</label>
+            <input type="text" id="order_id" name="order_id" value="" placeholder="Documento" class="form-control" formControlName="documento">
+            <div class="text-danger">
+              <p *ngIf="campoNoValido('documento')">*Ingresar documento.</p>
             </div>
           </div>
         </div>
-      </form>
-
-
+        <div class="col-sm-4">
+          <div *ngIf="btnLoading" class="sk-spinner sk-spinner-circle">
+            <div *ngFor="let spinrer of crearSpinner" class="sk-circle{{spinrer}} sk-circle"></div>
+          </div>
+          <button *ngIf="!btnLoading" class="btn btn-primary" (click)="searchCustomer()">Buscar</button>
+        </div>
+        <div class="col-sm-4">
+        </div>
+      </div>
+      <div [hidden]="!existCust" class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="col-form-label">Nombre</label>
+            <input type="text" class="form-control" formControlName="nombre" readonly>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="col-form-label">Apellido</label>
+            <input type="text" class="form-control" formControlName="apellido" readonly>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="col-form-label" for="amount">Total a Pagar</label>
+            <input type="text" id="amount" name="amount" value="" placeholder="Total" class="form-control" formControlName="total">
+            <div class="text-danger">
+              <p *ngIf="campoNoValido2('total')">*Ingresar Valor a Pagar.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-info btn-rounded" (click)="createReceipt()"> <i class="fa fa-dollar"></i> Pagar</button>
+        </div>
+      </div>
+    </form>
+    <div class="justify-content-start d-flex mr-2">
+      <button (click)="gotoBack()" class="btn btn-secondary">Volver</button>
     </div>
-    <div class="col-lg-3"></div>
-
-
   </div>
 </section>

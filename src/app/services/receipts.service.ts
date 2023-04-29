@@ -21,14 +21,23 @@ export class ReceiptsService {
   /**
    * Metodo para crear una factura o recibo
    */
-  public createReceipt = (formData: PayForm) => {
+  public createReceipt = (formData: PayForm, total:any) => {
     const json = {
       customerIdentification: formData.documento,
-      totalValue: formData.total,
+      totalValue: total,
       observation: 'pruebas',
     }
     return this.http.post(`${BASE_URL}/receipts`, json, this.httpOptions).pipe(
       map(resp => resp)
     )
   }
+
+  /**
+* Método de servicio para obtener todos los clientes
+*/
+public getReceipts = () => {
+  return this.http.get(`${BASE_URL}/receipts`, this.httpOptions).pipe(
+    map(resp => resp)
+  )
+}
 }

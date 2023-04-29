@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { ReceiptsService } from 'src/app/services/receipts.service';
+import jsPDF from 'jspdf';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -31,10 +33,14 @@ export class PagosComponent implements OnInit {
     private location: Location,
     private fb: FormBuilder,
     private custSrv: ClientesService,
-    private recSrv: ReceiptsService
+    private recSrv: ReceiptsService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    $(document).ready(function () {
+      $('#amount').mask('000.000.000.000', {reverse: true});
+    });
   }
 
   gotoBack() {
@@ -99,15 +105,16 @@ export class PagosComponent implements OnInit {
   /**Metodo para crear e imprimir el recibo */
 
   createReceipt() {
-    console.log(this.formPay.value);
 
     this.formSubmittedPay = true;
     if (this.formPay.invalid) {
       return;
     }
-
-    this.recSrv.createReceipt(this.formPay.value).subscribe((resp: any) => {
-      alert("se creo factura");
+    var vlrtottemp = this.formPay.value.total;
+    var vlrtot = parseInt(vlrtottemp.replace(/\./g, ''), 10);
+    this.recSrv.createReceipt(this.formPay.value, vlrtot).subscribe((resp: any) => {
+      Swal.fire('Bien hecho!', `Recibo de Pago creado correctamente`, 'success');
+      this.router.navigateByUrl('home');
       this.imprimir(this.formPay.value);
     }, (err) => {
       //En caso de un error
@@ -121,7 +128,9 @@ export class PagosComponent implements OnInit {
     const numeroRecibo = 12345678;
     const documento = infoPay.documento;
     const nombre = infoPay.nombre + ' ' + infoPay.apellido;
-    const totalPagado = infoPay.total;
+    var vlrtottemp = infoPay.total;
+    var vlrtot = parseInt(vlrtottemp.replace(/\./g, ''), 10);
+    const totalPagado = this.formatterPeso.format(vlrtot);
 
     // Obtener la fecha actual
     const fechaActual = new Date();
@@ -144,89 +153,106 @@ export class PagosComponent implements OnInit {
         * {
         font-size: 12px;
         font-family: "Times New Roman", Times, serif;
-      }
+    }
 
-      td,
-      th,
-      tr,
-      table {
+    td,
+    th,
+    tr,
+    table {
         border-top: 1px solid black;
         border-collapse: collapse;
 
-      }
+    }
 
-      td.producto,
-      th.producto {
+    td.producto,
+    th.producto {
         width: 75px;
         max-width: 75px;
-      }
+    }
 
-      td.cantidad,
-      th.cantidad {
+    td.cantidad,
+    th.cantidad {
         width: 40px;
         max-width: 40px;
         word-break: break-all;
-      }
+    }
 
-      td.precio,
-      th.precio {
+    td.precio,
+    th.precio {
         width: 40px;
         max-width: 40px;
         word-break: break-all;
-      }
+    }
 
-      .centrado {
+    .centrado {
         text-align: center;
         align-content: center;
         margin-top: 0px;
+    }
+
+    .ticket {
+        width: 170px;
+        max-width: 170px;
+    }
+
+    .total {
+        color: black;
+        text-align: center;
+        align-content: center;
+    }
+    .contenedor {
+        display: flex;
+        justify-content: center;
       }
 
-      .ticket {
-        width: 155px;
-        max-width: 155px;
+      .contenedor img {
+        width: 75%;
       }
 
-      img {
-        max-width: inherit;
-        width: inherit;
-      }
-
-      .total {
-        background-color: black;
-        color: white;
+      .centrado strong u {
+        text-decoration: underline;
       }
 
         </style>
     </head>
     <body>
-        <div class="ticket">
-            <img src="/assets/img/logos/LOGO DIBANET CIRCULO.png" alt="">
-            <p class="centrado">DIBRANET SAS
-                <br>901.498.416-6
-            </p>
-            <div class="centrado">
-                <p>VARIEDADES VANNE LA MERCED
-                    <br>CALLE 15 # 5-21
-                </p>
-            </div>
-            <p>
-                Recibo N. ${numeroRecibo}
-                <br>Fecha: ${fecha}
-            </p>
-            <div>
-                <p class="centrado">
-                    <strong>CLIENTE</strong>
-                    <br>CC: ${documento}
-                    <br>${nombre}
-                </p>
-            </div>
-            <div class="total">
-                <strong>Total pagado: $${totalPagado}</strong>
-            </div>
+    <div class="ticket mx-n1">
+        <div class="contenedor">
+            <img src="assets/img/logos/LOGO DIBANET CIRCULO.png" alt="">
         </div>
-    </body>
+
+        <p style="font-size: 10px !important; margin-bottom: -8px;" class="centrado">DIBRANET SAS
+            <br>901.498.416-6
+        </p>
+        <div class="centrado">
+            <p style="font-size: 10px !important;">VARIEDADES VANNE LA MERCED
+                <br>CALLE 15 # 5-21
+            </p>
+        </div>
+        <p class="centrado">
+            Recibo No. ${numeroRecibo}
+            <br>Fecha: ${fecha}
+        </p>
+            <p class="centrado">
+                <strong><u>CLIENTE</u></strong>
+                <br>CC: ${documento}
+                <br>${nombre}
+            </p>
+        <div class="total" style="margin-top: -14px;">
+            <p class="centrado"></p>
+            <strong><u>VALOR: <strong style="font-size: 17px !important;">${totalPagado}</strong></u></strong>
+            <p style="font-size: 10px !important; margin-top: -3px;">Mensualidad del servicio de Internet</p>
+        </div>
+        <p class="centrado" style="font-size: 11px !important;">
+            314 5052260 - 312 2193348
+            <br>facturacion.dibranet@gmail.com
+        </p>
+    </div>
+</body>
+
     </html>
   `;
+
 
     // Abrir una nueva ventana para la impresión
     const ventana = window.open('', '_blank');
@@ -243,5 +269,11 @@ export class PagosComponent implements OnInit {
       ventana?.close();
     };
   }
+
+  formatterPeso = new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0
+  })
 
 }

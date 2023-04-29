@@ -10,7 +10,6 @@ import { PagosComponent } from './pages/pagos/pagos.component';
 import { NotpagefoundComponent } from './notpagefound/notpagefound.component';
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
-
 @NgModule({
   declarations: [
     AppComponent,

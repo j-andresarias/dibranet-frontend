@@ -1,11 +1,46 @@
 
-<input type="file" (change)="onFileChange($event)" multiple="false" />
-<table class="footable table table-striped " data-filter=#filter>
-  <tbody>
-    <tr *ngFor="let row of data">
-            <td *ngFor="let cell of row">
-                    {{cell}}
+
+<section class="text-center">
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="ibox-content m-b-sm border-bottom col-lg-10">
+      <input type="text" class="form-control form-control-sm m-b-xs" id="filter"  placeholder="Buscar...">
+      <table class="footable table table-striped " data-filter=#filter data-page-size="10">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Recibo No.</th>
+            <th>Valor</th>
+            <th>Fecha</th>
+            <th>Cedula</th>
+            <th>Cliente</th>
+            <th>Telefono</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor ="let receipt of receipts; let indice=index">
+            <td>{{indice + 1}}</td>
+            <td>{{receipt.id}}</td>
+            <td>{{receipt.totalValue}}</td>
+            <td>{{receipt.createdAt}}</td>
+            <td>{{receipt.customer.identificationNumber}}</td>
+            <td>{{receipt.customer.name}} {{receipt.customer.lastName}}</td>
+            <td>{{receipt.customer.phone}}</td>
+            <!-- <td><button (click)="editCliente(cliente)" class="btn btn-info">Editar</button></td> -->
+          </tr>
+
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="10">
+              <ul class="pagination float-right"></ul>
             </td>
-    </tr>
-</tbody>
-</table>
+          </tr>
+        </tfoot>
+      </table>
+      <button (click)="gotoBack()" class="btn btn-danger m-b"
+                        type="button"><strong>Volver</strong></button>
+    </div>
+    <div class="col-lg-1"></div>
+  </div>
+</section>

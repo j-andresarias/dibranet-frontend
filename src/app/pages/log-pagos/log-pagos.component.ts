@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
+import { Location } from '@angular/common';
+import { ReceiptsService } from 'src/app/services/receipts.service';
+
+declare var $: any;
 
 @Component({
   selector: 'app-log-pagos',
@@ -7,42 +11,37 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./log-pagos.component.css']
 })
 export class LogPagosComponent implements OnInit {
-  data: [][] | undefined;
+  public receipts: Array<any> = [];
 
-  constructor() { }
+  constructor(
+    private location: Location,
+    private recSrv: ReceiptsService
+  ) { }
 
   ngOnInit(): void {
+    $(document).ready(() => {
+      $('.footable').footable();
+    });
+    this.getReceipts();
   }
 
-   onFileChange(evt: any) {
-    const target : DataTransfer =  <DataTransfer>(evt.target);
+  public getReceipts = () => {
+    this.recSrv.getReceipts().subscribe((resp: any) => {
+      this.receipts = resp.receipts;
+      for (let index = 0; index < this.receipts.length; index++) {
+        this.receipts[index].totalValue = this.formatterPeso.format(this.receipts[index].totalValue);
+      }
+    })
+  }
 
-    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+  formatterPeso = new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0
+  })
 
-    const reader: FileReader = new FileReader();
-
-    reader.onload = (e: any) => {
-      const bstr: string = e.target.result;
-
-      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
-
-      const wsname : string = wb.SheetNames[0];
-
-      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
-      //console.log(ws);
-
-      this.data = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
-
-      //console.log(this.data);
-
-      let x = this.data.slice(1);
-      console.log(x);
-
-    };
-
-    reader.readAsBinaryString(target.files[0]);
-
+  gotoBack() {
+    this.location.back();
   }
 
 }

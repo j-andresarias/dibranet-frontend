@@ -11,13 +11,11 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 mt-3">
           <div *ngIf="btnLoading" class="sk-spinner sk-spinner-circle">
             <div *ngFor="let spinrer of crearSpinner" class="sk-circle{{spinrer}} sk-circle"></div>
           </div>
           <button *ngIf="!btnLoading" class="btn btn-primary" (click)="searchCustomer()">Buscar</button>
-        </div>
-        <div class="col-sm-4">
         </div>
       </div>
       <div [hidden]="!existCust" class="row">

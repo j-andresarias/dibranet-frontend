@@ -1,0 +1,68 @@
+
+
+<section class="text-center">
+    <div class="row" id="ibox">
+      <div class="col-lg-1"></div>
+      <div class="ibox-content m-b-sm border-bottom col-lg-10">
+        <div class="sk-spinner sk-spinner-wave">
+            <div class="sk-rect1"></div>
+            <div class="sk-rect2"></div>
+            <div class="sk-rect3"></div>
+            <div class="sk-rect4"></div>
+            <div class="sk-rect5"></div>
+          </div>
+        <input type="text" class="form-control form-control-sm m-b-xs" id="filter"  placeholder="Buscar...">
+        <table class="table table-striped" data-filter="#filter" data-page-size="10">
+          <thead>
+            <tr>
+              <td><input type="checkbox" (change)="selectAll($event)" [checked]="isAllSelected()"></td>
+              <th>Recibo No.</th>
+              <th>Valor</th>
+              <th>Fecha</th>
+              <th>Cedula</th>
+              <th>Cliente</th>
+              <th>Telefono</th>
+              <th>Consignado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let receipt of receipts; let indice = index">
+              <td><input type="checkbox" [(ngModel)]="receipt.selected" (change)="onSelectionChange()"></td>
+              <td>{{receipt.number}}</td>
+              <td>{{receipt.totalValue}}</td>
+              <td>{{receipt.createdAt}}</td>
+              <td>{{receipt.customer.identificationNumber}}</td>
+              <td>{{receipt.customer.name}} {{receipt.customer.lastName}}</td>
+              <td>{{receipt.customer.phone}}</td>
+              <td>
+                <i class="fa-solid" 
+                   [ngClass]="receipt.isDeposited ? 'fa-check-circle text-success' : 'fa-times-circle text-danger'">
+                </i>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="10">
+                <ul class="pagination float-right"></ul>
+              </td>
+            </tr>
+          </tfoot>
+        </table>  
+        <div class="d-flex justify-content-between mt-3 col-lg-4">
+          <div>
+            <strong>Total a Consignar:</strong> {{ getTotalSelected() }}
+          </div>
+          <div>
+            <button (click)="toggleStatus()" class="btn btn-primary">
+              Consignar
+            </button>
+          </div>
+        </div>    
+        <button (click)="gotoBack()" class="btn btn-danger m-b"
+                          type="button"><strong>Volver</strong></button>
+      </div>
+      <div class="col-lg-1"></div>
+    </div>
+  </section>
+  

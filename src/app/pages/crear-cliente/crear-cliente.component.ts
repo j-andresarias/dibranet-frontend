@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
 import { ClientesService } from 'src/app/services/clientes.service';
+import { Route, Router } from '@angular/router';
 
 declare var $: any;
 
@@ -28,13 +29,19 @@ export class CrearClienteComponent implements OnInit {
     fechaCorte: new FormControl(''),
     fechaInstalacion: new FormControl(''),
     estado: new FormControl(''),
-    estrato: new FormControl('')
+    estrato: new FormControl(''),
+    valorServicio: new FormControl(''),
+    fechaNacimiento: new FormControl(''),
+    telefono2: new FormControl(''),
+    observacion: new FormControl('')
   });
 
   constructor(
     private fb: FormBuilder,
     private location: Location,
-    private custSrv: ClientesService
+    private custSrv: ClientesService,
+    private router: Router
+
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +58,8 @@ export class CrearClienteComponent implements OnInit {
 
       Swal.fire('Bien hecho!', `Usuario creado correctamente`, 'success');
       this.activeSpinner();
-      this.gotoBack();
+      this.router.navigateByUrl('/home/clientes')
+      //this.gotoBack();
     }, (err) => {
       //En caso de un error
       Swal.fire('Error', JSON.stringify(err.error.errors), 'error');

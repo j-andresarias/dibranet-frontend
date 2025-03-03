@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,13 +11,14 @@ import Swal from 'sweetalert2';
 export class HeaderComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authSrv: AuthService
   ) { }
 
   ngOnInit(): void {
   }
 
-  cerrarSesion(){
+  cerrarSesion() {
     Swal.fire({
       title: '¿Desea cerrar sesión?',
       icon: 'question',
@@ -27,7 +29,7 @@ export class HeaderComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         setTimeout(() => { this.router.navigateByUrl('/login'); }, 700);
-
+        this.authSrv.logOutService();
       }
     })
   }

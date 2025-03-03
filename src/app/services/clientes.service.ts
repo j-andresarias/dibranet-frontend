@@ -34,13 +34,22 @@ export class ClientesService {
   public createCustomer = (formData: CreateCustomerForm) => {
     const json = {
       name: formData.nombre,
-       lastName: formData.apellido,
+      lastName: formData.apellido,
       identificationType: formData.tipoDoc,
       identificationNumber: formData.documento,
       address: formData.direccion,
       phone: formData.telefono,
-      email: formData.correo
-    }
+      email: formData.correo,
+      birthDate: formData.fechaNacimiento,
+      serviceCost: formData.valorServicio,
+      phone2: formData.telefono2,
+      modality: formData.modalidad,
+      stratum: formData.estrato,
+      observation: formData.observacion,
+      megabytes: formData.megas,
+      cutOfDate: formData.fechaCorte,
+      instalationDate: formData.fechaInstalacion
+    }    
     return this.http.post(`${BASE_URL}/customers`, json, this.httpOptions).pipe(
       map(resp => resp)
     )
@@ -53,23 +62,31 @@ export class ClientesService {
     const json = {
       name: formData.nombre,
       lastName: formData.apellido,
-      /* identificationType: formData.tipoDoc,
+      identificationType: formData.tipoDoc,
       identificationNumber: formData.documento,
       address: formData.direccion,
       phone: formData.telefono,
-      email: formData.correo */
+      email: formData.correo,
+      birthDate: formData.fechaNacimiento,
+      serviceCost: formData.valorServicio,
+      phone2: formData.telefono2,
+      modality: formData.modalidad,
+      stratum: formData.estrato,
+      observation: formData.observacion,
+      megabytes: formData.megas,
+      cutOfDate: formData.fechaCorte,
     }
     return this.http.put(`${BASE_URL}/customers/${formData.documento}`, json, this.httpOptions).pipe(
       map(resp => resp)
     )
   }
 
-    /**
+  /**
 * Método de servicio para obtener cliente por cedula
 */
-public getCustomer = (document:any) => {
-  return this.http.get(`${BASE_URL}/customers/${document}`, this.httpOptions).pipe(
-    map(resp => resp)
-  )
-}
+  public getCustomer = (document: any) => {
+    return this.http.get(`${BASE_URL}/customers/${document}`, this.httpOptions).pipe(
+      map(resp => resp)
+    )
+  }
 }

@@ -60,8 +60,15 @@
                     </div>
                   </div>
                   <div class="col-lg-4 mb-3">
+                    <label class="form-label">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" formControlName="fechaNacimiento">
+                  </div>
+                  <div class="col-lg-4 mb-3">
                     <label class="form-label">Modalidad</label>
-                    <input type="text" class="form-control" formControlName="modalidad">
+                    <select formControlName="rol" class="form-select" formControlName="modalidad">
+                      <option value="Anticipado">Anticipado</option>
+                      <option value="Vencido">Vencido</option>
+                    </select>
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Dirección</label>
@@ -78,6 +85,10 @@
                     </div>
                   </div>
                   <div class="col-lg-4 mb-3">
+                    <label class="form-label">Telefono 2 (Opcional)</label>
+                    <input type="text" class="form-control" formControlName="telefono2">
+                  </div>
+                  <div class="col-lg-4 mb-3">
                     <label class="form-label">Estrato</label>
                     <select formControlName="rol" class="form-select" formControlName="estrato">
                       <option value="1">1</option>
@@ -88,15 +99,30 @@
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Megas</label>
-                    <input type="text" class="form-control" formControlName="megas">
+                    <select formControlName="rol" class="form-select" formControlName="megas">
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="10">10</option>
+                      <option value="1">15</option>
+                      <option value="20">20</option>
+                    </select>
                   </div>
                   <div class="col-lg-4 mb-3">
-                    <label class="form-label">Fecha de Corte</label>
-                    <input type="date" class="form-control" formControlName="fechaCorte">
+                    <label class="form-label">Fecha de Corte (Día)</label>
+                    <input type="number" class="form-control" formControlName="fechaCorte">
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Fecha de Instalación</label>
                     <input type="date" class="form-control" formControlName="fechaInstalacion">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Valor Servicio</label>
+                    <input type="number" class="form-control" formControlName="valorServicio">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Notas</label>
+                    <input type="text" class="form-control" formControlName="observacion">
                   </div>
                 </div>
                 <div class="row">

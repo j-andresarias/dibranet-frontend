@@ -36,7 +36,10 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.btnLoading = true;
+    console.log(this.loginForm.value);
+    
     this.authSrv.login(this.loginForm.value).subscribe((resp: any) => {
+      this.authSrv.logInService(resp.authToken, this.loginForm.value.User);
       this.router.navigateByUrl('/home');
       this.btnLoading = false;
 

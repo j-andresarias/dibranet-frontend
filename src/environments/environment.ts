@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   base_url: 'https://apimocha.com/dibranet/',
-  base_url2:'api'
+  base_url2:'https://dibranet-backend-sandbox.onrender.com/api'
 };
 
 /*

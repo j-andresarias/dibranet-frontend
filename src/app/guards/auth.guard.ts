@@ -16,13 +16,13 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      const estado = true;
+      const esValido = this.authServ.validarToken();
 
-      if ( !estado ) {
+      if ( !esValido ) {
         this.router.navigateByUrl('/login');
       }
 
-      return estado;
+      return esValido;
   }
   }
 

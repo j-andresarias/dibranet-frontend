@@ -61,6 +61,7 @@ export class PagosComponent implements OnInit {
       this.formPay.controls['apellido'].setValue(customer.lastName);
       //this.formPay.controls['apellido'].disable();
       this.formPay.controls['total'].setValidators([Validators.required]);
+      this.formPay.controls['total'].setValue(customer.serviceCost.toString());
       this.formPay.controls['total'].updateValueAndValidity();
       this.formPay.controls['documento'].setValidators([]);
       this.formPay.controls['documento'].updateValueAndValidity();
@@ -110,22 +111,33 @@ export class PagosComponent implements OnInit {
     if (this.formPay.invalid) {
       return;
     }
-    var vlrtottemp = this.formPay.value.total;
-    var vlrtot = parseInt(vlrtottemp.replace(/\./g, ''), 10);
-    this.recSrv.createReceipt(this.formPay.value, vlrtot).subscribe((resp: any) => {
-      Swal.fire('Bien hecho!', `Recibo de Pago creado correctamente`, 'success');
-      this.router.navigateByUrl('home');
-      this.imprimir(this.formPay.value);
-    }, (err) => {
-      //En caso de un error
-      Swal.fire('Error', JSON.stringify(err.error.errors), 'error');
-    })
 
+        Swal.fire({
+          title: '¿Desea realizar el pago?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#00afef',
+          cancelButtonColor: '#ff4444',
+          confirmButtonText: 'Si!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var vlrtottemp = this.formPay.value.total;
+            var vlrtot = parseInt(vlrtottemp.replace(/\./g, ''), 10);
+            this.recSrv.createReceipt(this.formPay.value, vlrtot).subscribe((resp: any) => {
+              Swal.fire('Bien hecho!', `Recibo de Pago creado correctamente`, 'success');
+              this.router.navigateByUrl('home');
+              this.imprimir(this.formPay.value, resp.number);
+            }, (err) => {
+              //En caso de un error
+              Swal.fire('Error', JSON.stringify(err.error.errors), 'error');
+            })
+          }
+        })
   }
 
-  imprimir(infoPay: any) {
+  imprimir(infoPay: any, number:number) {
 
-    const numeroRecibo = 12345678;
+    const numeroRecibo = number;
     const documento = infoPay.documento;
     const nombre = infoPay.nombre + ' ' + infoPay.apellido;
     var vlrtottemp = infoPay.total;

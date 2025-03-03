@@ -15,13 +15,14 @@ export class ReceiptsService {
 
   constructor(
     private http: HttpClient
-  ) { this.httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-}
+  ) {
+    this.httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  }
 
   /**
    * Metodo para crear una factura o recibo
    */
-  public createReceipt = (formData: PayForm, total:any) => {
+  public createReceipt = (formData: PayForm, total: any) => {
     const json = {
       customerIdentification: formData.documento,
       totalValue: total,
@@ -33,11 +34,33 @@ export class ReceiptsService {
   }
 
   /**
-* Método de servicio para obtener todos los clientes
+* Método de servicio para obtener todos los recibos de pago
 */
-public getReceipts = () => {
+  public getReceipts = (estado: boolean) => {
+    return this.http.get(`${BASE_URL}/receipts?isDeposited=${estado}`, this.httpOptions).pipe(
+      map(resp => resp)
+    )
+  }
+
+    /**
+* Método de servicio para obtener todos los recibos de pago
+*/
+public getAllReceipts = (estado: boolean) => {
   return this.http.get(`${BASE_URL}/receipts`, this.httpOptions).pipe(
     map(resp => resp)
   )
 }
+
+  /**
+* Método de servicio para actualizar el estado de un recibo
+*/
+  public updateReceipts = (idRecibo: number) => {
+    const json = {
+      isDeposited: true
+    }
+    return this.http.put(`${BASE_URL}/receipts/${idRecibo}`, json, this.httpOptions).pipe(
+      map(resp => resp)
+    )
+  }
+
 }

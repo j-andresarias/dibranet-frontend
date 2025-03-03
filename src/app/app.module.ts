@@ -10,6 +10,10 @@ import { PagosComponent } from './pages/pagos/pagos.component';
 import { NotpagefoundComponent } from './notpagefound/notpagefound.component';
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +25,16 @@ import { AuthModule } from './auth/auth.module';
     PagesModule,
     AuthModule
   ],
-  providers: [],
+  providers: [{
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

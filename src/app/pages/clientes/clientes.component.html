@@ -6,7 +6,7 @@
     <div class="col-lg-1"></div>
     <div class="ibox-content m-b-sm border-bottom col-lg-10">
       <input type="text" class="form-control form-control-sm m-b-xs" id="filter" placeholder="Buscar...">
-      <table class="footable table table-striped " data-filter=#filter>
+      <table class="footable table table-striped " data-filter=#filter data-page-size="10">
         <thead>
           <tr>
             <th>#</th>
@@ -34,16 +34,26 @@
             <td>{{cliente.identificationNumber}}</td>
             <td>{{cliente.address}}</td>
             <td>{{cliente.phone}}</td>
-            <td>{{cliente.email}}</td>
+            <td style="max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" title="{{ cliente.email }}">
+              {{ cliente.email }}
+            </td>
+            
         <!--     <td>{{cliente.megas}}</td> -->
            <!--  <td>{{cliente.modalidad}}</td> -->
             <!-- <td>{{cliente.fechaCorte}}</td> -->
-            <td>{{cliente.createdAt}}</td>
+            <td>{{cliente.instalationDate}}</td>
             <!-- <td>{{cliente.observacion}}</td> -->
             <td><button (click)="editCliente(cliente)" class="btn btn-info">Editar</button></td>
           </tr>
 
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="10">
+              <ul class="pagination float-right"></ul>
+            </td>
+          </tr>
+        </tfoot>
       </table>
       <button (click)="gotoBack2()" class="btn btn-danger m-b"
                         type="button"><strong>Volver</strong></button>
@@ -96,8 +106,15 @@
                     <input type="text" class="form-control" formControlName="documento">
                   </div>
                   <div class="col-lg-4 mb-3">
+                    <label class="form-label">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" formControlName="fechaNacimiento">
+                  </div>
+                  <div class="col-lg-4 mb-3">
                     <label class="form-label">Modalidad</label>
-                    <input type="text" class="form-control" formControlName="modalidad" >
+                    <select formControlName="rol" class="form-select" formControlName="modalidad">
+                      <option value="Anticipado">Anticipado</option>
+                      <option value="Vencido">Vencido</option>
+                    </select>
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Dirección</label>
@@ -106,6 +123,10 @@
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Telefono</label>
                     <input type="text" class="form-control" formControlName="telefono">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Telefono 2 (Opcional)</label>
+                    <input type="text" class="form-control" formControlName="telefono2">
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Estrato</label>
@@ -118,15 +139,30 @@
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Megas</label>
-                    <input type="text" class="form-control" formControlName="megas">
+                    <select formControlName="rol" class="form-select" formControlName="megas">
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="10">10</option>
+                      <option value="1">15</option>
+                      <option value="20">20</option>
+                    </select>
                   </div>
                   <div class="col-lg-4 mb-3">
-                    <label class="form-label">Fecha de Corte</label>
-                    <input type="date" class="form-control" formControlName="fechaCorte">
+                    <label class="form-label">Fecha de Corte (Día)</label>
+                    <input type="number" class="form-control" formControlName="fechaCorte">
                   </div>
                   <div class="col-lg-4 mb-3">
                     <label class="form-label">Fecha de Instalación</label>
                     <input type="date" class="form-control" formControlName="fechaInstalacion">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Valor Servicio</label>
+                    <input type="number" class="form-control" formControlName="valorServicio">
+                  </div>
+                  <div class="col-lg-4 mb-3">
+                    <label class="form-label">Notas</label>
+                    <input type="text" class="form-control" formControlName="observacion">
                   </div>
                 </div>
                 <div class="row">

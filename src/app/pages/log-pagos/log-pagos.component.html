@@ -1,34 +1,36 @@
-
-
 <section class="text-center">
   <div class="row">
     <div class="col-lg-1"></div>
     <div class="ibox-content m-b-sm border-bottom col-lg-10">
-      <input type="text" class="form-control form-control-sm m-b-xs" id="filter"  placeholder="Buscar...">
-      <table class="footable table table-striped " data-filter=#filter data-page-size="10">
+      <input type="text" class="form-control form-control-sm m-b-xs" id="filter" placeholder="Buscar...">
+      <table class="footable table table-striped" data-filter="#filter" data-page-size="20" id="tableReceipts">
         <thead>
           <tr>
-            <th>#</th>
             <th>Recibo No.</th>
             <th>Valor</th>
             <th>Fecha</th>
             <th>Cedula</th>
             <th>Cliente</th>
-            <th>Telefono</th>
+            <th>Consignado</th>
+            <th>Fecha Con.</th>
+            <th>Imprimir</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor ="let receipt of receipts; let indice=index">
-            <td>{{indice + 1}}</td>
-            <td>{{receipt.id}}</td>
+          <tr *ngFor="let receipt of receipts; let indice = index">
+            <td>{{receipt.number}}</td>
             <td>{{receipt.totalValue}}</td>
             <td>{{receipt.createdAt}}</td>
             <td>{{receipt.customer.identificationNumber}}</td>
             <td>{{receipt.customer.name}} {{receipt.customer.lastName}}</td>
-            <td>{{receipt.customer.phone}}</td>
-            <!-- <td><button (click)="editCliente(cliente)" class="btn btn-info">Editar</button></td> -->
+            <td>
+              <i class="fa-solid"
+                [ngClass]="receipt.isDeposited ? 'fa-check-circle text-success' : 'fa-times-circle text-danger'">
+              </i>
+            </td>
+            <td>{{receipt.depositedAt}}</td>
+            <td><i class="fa fa-print" (click)="imprimirRecibo(receipt)"></i></td>
           </tr>
-
         </tbody>
         <tfoot>
           <tr>
@@ -38,8 +40,10 @@
           </tr>
         </tfoot>
       </table>
-      <button (click)="gotoBack()" class="btn btn-danger m-b"
-                        type="button"><strong>Volver</strong></button>
+      <div style="display: flex; gap: 10px;">
+        <button (click)="gotoBack()" class="btn btn-danger"><strong>Volver</strong></button>
+        <button class="btn btn-info" (click)="exportTableToExcel2()">Exportar</button>
+      </div>      
     </div>
     <div class="col-lg-1"></div>
   </div>

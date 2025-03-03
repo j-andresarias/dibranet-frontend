@@ -32,7 +32,10 @@ export class ClientesComponent implements OnInit {
     fechaCorte: new FormControl(''),
     fechaInstalacion: new FormControl(''),
     estado: new FormControl(''),
-    estrato: new FormControl('')
+    estrato: new FormControl(''),
+    telefono2: new FormControl(''),
+    valorServicio: new FormControl('', Validators.required),
+    fechaNacimiento: new FormControl('')
   });
 
   constructor(
@@ -43,18 +46,21 @@ export class ClientesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    $(document).ready(() => {
-      $('.footable').footable();
-    });
     this.getClientes();
   }
-
   public getClientes = () => {
     this.custSrv.getCustomers().subscribe((resp: any) => {
-      this.clientes = resp.customers;
-      console.log(this.clientes);
-    })
-  }
+      $(document).ready(() => {
+        $('.footable').footable();
+      });
+      this.clientes = resp.customers.map((customer: any) => ({
+        ...customer,
+        instalationDate: customer.instalationDate ? customer.instalationDate.split('T')[0] : null,
+        birthDate: customer.birthDate ? customer.birthDate.split('T')[0] : null,
+      }));
+    });
+  };
+  
 
   /**
    * Método para navegar a crear roles
@@ -71,7 +77,6 @@ Metodo para actualizar los datos del cliente
       $('.footable3').footable();
     });
     this.edit = true;
-    console.log(customer);
     this.updateCustomerForm = this.fb.group({
       userId: [customer._id],
       nombre: new FormControl(customer.name, [Validators.required, Validators.minLength(3)]),
@@ -81,12 +86,16 @@ Metodo para actualizar los datos del cliente
       direccion: new FormControl(customer.address, [Validators.required]),
       telefono: new FormControl(customer.phone, [Validators.required]),
       email: new FormControl(customer.email, [Validators.required, Validators.email]),
-      megas: new FormControl({ value: '', disabled: true }),
-      modalidad: new FormControl({ value: '', disabled: true }),
-      fechaCorte: new FormControl({ value: '', disabled: true }),
-      fechaInstalacion: new FormControl({ value: '', disabled: true }),
+      megas: new FormControl( customer.megabytes),
+      modalidad: new FormControl({ value: customer.modality, disabled: false }),
+      fechaCorte: new FormControl({ value: customer.cutOfDate, disabled: false }),
+      fechaInstalacion: new FormControl({ value: customer.instalationDate, disabled: true }),
+      fechaNacimiento: new FormControl({ value: customer.birthDate, disabled: false }),
       estado: new FormControl(''),
-      estrato: new FormControl({ value: '', disabled: true })
+      estrato: new FormControl({ value: customer.stratum, disabled: false }),
+      valorServicio: new FormControl(customer.serviceCost, [Validators.required]),
+      observacion: new FormControl({ value: customer.observation, disabled: false }),
+      telefono2: new FormControl({ value: customer.phone2, disabled: false })
     });
 
   }

@@ -1,8 +1,8 @@
 <div class="row">
-  <div class="col-lg-4">
+  <div class="col-lg-4 mt-1">
     <div class="card">
       <div style="text-align:center ;" class="card-body">
-        <img src="../../../assets/imagenes/4564877.png" alt="">
+        <img src="assets/imagenes/4564877.png" alt="">
         <br>
         <br>
         <button routerLink="pagos" type="button" class="btn btn-primary">Pagos</button>
@@ -10,10 +10,10 @@
     </div>
   </div>
 
-  <div class="col-lg-4">
+  <div class="col-lg-4 mt-1" [hidden]="isAdmin == 'false'">
     <div class="card">
       <div style="text-align:center ;" class="card-body">
-        <img src="../../../assets/imagenes/cliente.jpg" alt="">
+        <img src="assets/imagenes/cliente.jpg" alt="">
         <br>
         <br>
         <button routerLink="clientes" type="button" class="btn btn-primary">Clientes</button>
@@ -21,16 +21,25 @@
     </div>
   </div>
 
-  <div class="col-lg-4">
+  <div class="col-lg-4 mt-1">
     <div class="card">
       <div style="text-align:center ;" class="card-body">
-        <img src="../../../assets/imagenes/3201052.png" alt="">
+        <img src="assets/imagenes/3201052.png" alt="">
         <br>
         <br>
         <button routerLink="log-pagos" type="button" class="btn btn-primary">Registro de pagos</button>
       </div>
     </div>
   </div>
-
+  <div class="col-lg-4 mt-1">
+    <div class="card">
+      <div style="text-align:center ;" class="card-body">
+        <img src="assets/imagenes/pago1.png" alt="">
+        <br>
+        <br>
+        <button routerLink="registro-consignaciones" type="button" class="btn btn-primary">Consignaciones</button>
+      </div>
+    </div>
+  </div>
 
 </div>

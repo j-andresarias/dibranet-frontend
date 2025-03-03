@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PagosComponent } from './pagos/pagos.component';
 import { SharedModule } from '../shared/shared.module';
 import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
+import { RegistroConsignacionesComponent } from './registro-consignaciones/registro-consignaciones.component';
 
 
 
@@ -22,7 +23,8 @@ import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
     ClientesComponent,
     LogPagosComponent,
     PagosComponent,
-    CrearClienteComponent
+    CrearClienteComponent,
+    RegistroConsignacionesComponent
 
   ],
   imports: [

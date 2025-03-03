@@ -7,6 +7,8 @@ import { LogPagosComponent } from './log-pagos/log-pagos.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
+import { RegistroConsignacionesComponent } from './registro-consignaciones/registro-consignaciones.component';
+import { AdminGuard } from '../guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -17,8 +19,9 @@ const routes: Routes = [
       { path: '', component: HomeComponent},
       { path: 'pagos', component: PagosComponent},
       { path: 'log-pagos', component: LogPagosComponent },
-      { path: 'clientes', component: ClientesComponent },
-      { path: 'crear-cliente', component: CrearClienteComponent }
+      { path: 'clientes', component: ClientesComponent, canActivate: [AdminGuard] },
+      { path: 'crear-cliente', component: CrearClienteComponent },
+      { path: 'registro-consignaciones', component: RegistroConsignacionesComponent }
     ]
   },
 

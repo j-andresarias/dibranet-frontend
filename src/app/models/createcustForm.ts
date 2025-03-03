@@ -12,4 +12,8 @@ export interface CreateCustomerForm {
   fechaInstalacion: string;
   estado: boolean;
   estrato: number;
+  fechaNacimiento: string;
+  valorServicio: string;
+  telefono2: string;
+  observacion: string;
 }

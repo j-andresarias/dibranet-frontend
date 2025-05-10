@@ -23,7 +23,7 @@ export class CrearClienteComponent implements OnInit {
     documento: new FormControl('', Validators.required),
     direccion: new FormControl('', Validators.required),
     telefono: new FormControl('', Validators.required),
-    correo: new FormControl('', [Validators.required, Validators.email]),
+    correo: new FormControl(''),
     megas: new FormControl(''),
     modalidad: new FormControl(''),
     fechaCorte: new FormControl(''),

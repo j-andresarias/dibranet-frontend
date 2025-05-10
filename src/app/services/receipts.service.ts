@@ -26,7 +26,7 @@ export class ReceiptsService {
     const json = {
       customerIdentification: formData.documento,
       totalValue: total,
-      observation: 'pruebas',
+      observation: '',
     }
     return this.http.post(`${BASE_URL}/receipts`, json, this.httpOptions).pipe(
       map(resp => resp)

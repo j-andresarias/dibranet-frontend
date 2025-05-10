@@ -285,11 +285,15 @@ export class LogPagosComponent implements OnInit {
     
     const receiptsForExport = this.receipts.map(receipt => ({
       ...receipt,
-      consignado: receipt.isDeposited ? 1 : 0 
+      consignado: receipt.isDeposited ? 1 : 0,
+      identificationNumber: receipt.customer?.identificationNumber || '',
+      name: receipt.customer?.name || '',
+      lastName: receipt.customer?.lastName || '',
+      phone: receipt.customer?.phone || ''
     }));
-  
+    
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(receiptsForExport, {
-      header: ["number", "totalValue", "createdAt", "customer.identificationNumber", "customer.name", "customer.lastName","customer.phone"]
+      header: ["number", "totalValue", "createdAt", "identificationNumber", "name", "lastName","phone"]
     });
   
     const workbook: XLSX.WorkBook = XLSX.utils.book_new();

@@ -26,7 +26,7 @@ export class ClientesComponent implements OnInit {
     documento: new FormControl('', Validators.required),
     direccion: new FormControl('', Validators.required),
     telefono: new FormControl('', Validators.required),
-    correo: new FormControl('', [Validators.required, Validators.email]),
+    correo: new FormControl(''),
     megas: new FormControl(''),
     modalidad: new FormControl(''),
     fechaCorte: new FormControl(''),
@@ -85,7 +85,7 @@ Metodo para actualizar los datos del cliente
       documento: new FormControl(customer.identificationNumber, [Validators.required]),
       direccion: new FormControl(customer.address, [Validators.required]),
       telefono: new FormControl(customer.phone, [Validators.required]),
-      email: new FormControl(customer.email, [Validators.required, Validators.email]),
+      email: new FormControl(customer.email),
       megas: new FormControl( customer.megabytes),
       modalidad: new FormControl({ value: customer.modality, disabled: false }),
       fechaCorte: new FormControl({ value: customer.cutOfDate, disabled: false }),
@@ -102,6 +102,7 @@ Metodo para actualizar los datos del cliente
 
   actualizarCustomer() {
     this.formSubmitted = true;
+    
     if (this.updateCustomerForm.invalid) {
       return;
     }
@@ -120,6 +121,9 @@ Metodo para actualizar los datos del cliente
 
   gotoBack() {
     this.edit = false;
+    $(document).ready(() => {
+      $('.footable').footable();
+    });
   }
 
   gotoBack2() {
